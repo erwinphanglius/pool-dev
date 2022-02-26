@@ -17,6 +17,7 @@ export function handlePoolCreation(event: PoolCreation): void {
     poolEntity = new Pool(event.params.poolAddress.toHex())
   }
 
+  poolEntity.factory = event.address.toHex()
   poolEntity.maxCap = event.params.poolMaxCap
   poolEntity.createdAt = event.params.timestamp
   poolEntity.startedAt = event.params.saleStartTime

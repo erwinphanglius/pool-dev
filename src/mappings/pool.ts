@@ -1,9 +1,11 @@
 import {
   FundPool
 } from "../../generated/templates/MetaversepadTemplate/Metaversepad"
-import { Pool, UserInPool } from "../../generated/schema"
+import {
+  PoolCreation
+} from "../../generated/templates/MetaversepadTemplate/PoolFactory"
+import { Factory, Pool, UserInPool } from "../../generated/schema"
 import { Address, BigInt } from "@graphprotocol/graph-ts";
-import { PoolCreation } from "../../generated/PoolFactory/PoolFactory";
 
 export function addRaisedFundByPool(address: Address, newValue: BigInt): void {
   let id = address.toHex()
@@ -15,17 +17,17 @@ export function addRaisedFundByPool(address: Address, newValue: BigInt): void {
   pool.save()
 }
 
-// export function addRaisedFundToFactory(address: Address, newValue: BigInt): void {
-//   let id = address.toHex()
-//   let factory = Factory.load(id)
-//   if (factory == null) {
-//     factory = new Factory(id)
-//   }
-//   factory.totalRaised = factory.totalRaised.plus(newValue)
-//   factory.save()
-// }
+export function addRaisedFundToFactory(address: Address, newValue: BigInt): void {
+  let id = address.toHex()
+  let factory = Factory.load(id)
+  if (factory == null) {
+    factory = new Factory(id)
+  }
+  factory.totalRaised = factory.totalRaised.plus(newValue)
+  factory.save()
+}
 
-export function handleFundPool(evtPoolInfo: FundPool): void {
+export function handleFundPool(evtPoolCreation: PoolCreation, evtPoolInfo: FundPool): void {
   let userInPoolEntity = UserInPool.load(evtPoolInfo.params.initiator.toHex() + "-" + evtPoolInfo.address.toHex())
 
   if (!userInPoolEntity) {
@@ -37,7 +39,7 @@ export function handleFundPool(evtPoolInfo: FundPool): void {
   userInPoolEntity.value = userInPoolEntity.value.plus(evtPoolInfo.params.value)
 
   addRaisedFundByPool(evtPoolInfo.address, evtPoolInfo.params.value)
-  // addRaisedFundToFactory(evtPoolCreation.address, evtPoolInfo.params.value)
+  addRaisedFundToFactory(evtPoolCreation.address, evtPoolInfo.params.value)
   
   userInPoolEntity.save() 
 }
