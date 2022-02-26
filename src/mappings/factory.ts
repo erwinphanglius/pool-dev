@@ -23,6 +23,7 @@ export function handlePoolCreation(event: PoolCreation): void {
   poolEntity.participants = event.params.totalParticipants
   poolEntity.totalRaised = BigInt.fromI32(0)
 
+  factoryEntity.totalRaised = BigInt.fromI32(0)
   factoryEntity.pool.push(poolEntity.id)
 
   MetaversepadTemplate.create(event.params.poolAddress)
