@@ -21,8 +21,8 @@ dataSources:
       eventHandlers:
         - event: PoolCreation(indexed uint256,indexed address,indexed address,uint256,uint256,uint256,uint256,uint256)
           handler: handlePoolCreation
-        - event: PoolCreation(indexed uint256,indexed address,indexed address,uint256,uint256,uint256,uint256,uint256)
-          handler: handleFundPool
+        # - event: PoolCreation(indexed uint256,indexed address,indexed address,uint256,uint256,uint256,uint256,uint256)
+        #   handler: handleFundPool
       file: ./src/mappings/factory.ts
 templates:
   - kind: ethereum/contract

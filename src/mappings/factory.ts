@@ -16,7 +16,7 @@ export function addRaisedFundToFactory(address: Address, newValue: BigInt): void
   factory.save()
 }
 
-export function handlePoolCreation(event: PoolCreation, evtFundPool: FundPool): void {
+export function handlePoolCreation(event: PoolCreation): void {
   // let factoryEntity = Factory.load(event.address.toHex())
   let poolEntity = Pool.load(event.params.poolAddress.toHex())
 
@@ -37,7 +37,7 @@ export function handlePoolCreation(event: PoolCreation, evtFundPool: FundPool): 
   poolEntity.participants = event.params.totalParticipants
   poolEntity.totalRaised = BigInt.fromI32(0)
 
-  addRaisedFundToFactory(event.address, evtFundPool.params.value)
+  // addRaisedFundToFactory(event.address, evtFundPool.params.value)
 
   // factoryEntity.totalRaised = factoryEntity.totalRaised.plus(poolEntity.totalRaised)
   // factoryEntity.pool = [poolEntity.id]
