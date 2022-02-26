@@ -3,18 +3,7 @@ import {
 } from "../../generated/PoolFactory/PoolFactory"
 import { Factory, Pool } from "../../generated/schema"
 import { MetaversepadTemplate } from "../../generated/templates"
-import { Address, BigInt } from "@graphprotocol/graph-ts";
-import { FundPool } from "../../generated/templates/MetaversepadTemplate/Metaversepad";
-
-export function addRaisedFundToFactory(address: Address, newValue: BigInt): void {
-  let id = address.toHex()
-  let factory = Factory.load(id)
-  if (factory == null) {
-    factory = new Factory(id)
-  }
-  factory.totalRaised = factory.totalRaised.plus(newValue)
-  factory.save()
-}
+import { BigInt } from "@graphprotocol/graph-ts";
 
 export function handlePoolCreation(event: PoolCreation): void {
   // let factoryEntity = Factory.load(event.address.toHex())
@@ -36,8 +25,6 @@ export function handlePoolCreation(event: PoolCreation): void {
   poolEntity.tiers = event.params.noOfTiers
   poolEntity.participants = event.params.totalParticipants
   poolEntity.totalRaised = BigInt.fromI32(0)
-
-  // addRaisedFundToFactory(event.address, evtFundPool.params.value)
 
   // factoryEntity.totalRaised = factoryEntity.totalRaised.plus(poolEntity.totalRaised)
   // factoryEntity.pool = [poolEntity.id]
