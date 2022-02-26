@@ -1,6 +1,6 @@
 type Pool @entity {
   id: ID!
-  factory: Factory!
+  # factory: Factory!
   maxCap: BigInt!
   createdAt: BigInt!
   startedAt: BigInt!
@@ -20,5 +20,5 @@ type UserInPool @entity {
 type Factory @entity {
   id: ID!
   totalRaised: BigInt!
-  pool: [Pool!]! @derivedFrom(field: "factory")
+  # pool: [Pool!]! @derivedFrom(field: "factory")
 }
