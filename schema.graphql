@@ -1,0 +1,21 @@
+type Pool @entity {
+  id: ID!
+  createdAt: BigInt!
+  startedAt: BigInt!
+  endedAt: BigInt!
+  participants: BigInt!
+  totalRaised: BigInt!
+}
+
+type UserInPool @entity {
+  id: ID!
+  user: Bytes!
+  pool: Bytes!
+  value: BigInt!
+}
+
+type Factory @entity {
+  id: ID!
+  totalRaised: BigInt!
+  pool: [Pool!]!
+}
