@@ -1,8 +1,10 @@
 type Pool @entity {
   id: ID!
+  maxCap: BigInt!
   createdAt: BigInt!
   startedAt: BigInt!
   endedAt: BigInt!
+  tiers: BigInt!
   participants: BigInt!
   totalRaised: BigInt!
 }

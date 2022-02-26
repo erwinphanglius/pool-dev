@@ -17,9 +17,11 @@ export function handlePoolCreation(event: PoolCreation): void {
     poolEntity = new Pool(event.params.poolAddress.toHex())
   }
 
+  poolEntity.maxCap = event.params.poolMaxCap
   poolEntity.createdAt = event.params.timestamp
   poolEntity.startedAt = event.params.saleStartTime
   poolEntity.endedAt = event.params.saleEndTime
+  poolEntity.tiers = event.params.noOfTiers
   poolEntity.participants = event.params.totalParticipants
   poolEntity.totalRaised = BigInt.fromI32(0)
 
