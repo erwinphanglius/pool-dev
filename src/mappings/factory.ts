@@ -19,10 +19,10 @@ export function handlePoolCreation(event: PoolCreation): void {
 
   if(event.params.noOfTiers == BigInt.fromI32(5)){
     factoryEntity.totalProject = factoryEntity.totalProject.plus(BigInt.fromI32(1))
-    factoryEntity.save()
   }
   
-  // poolEntity.factory = event.address.toHex()
+  factoryEntity.pool = [poolEntity.id]
+  poolEntity.factory = factoryEntity.id
   poolEntity.maxCap = event.params.poolMaxCap
   poolEntity.createdAt = event.params.timestamp
   poolEntity.startedAt = event.params.saleStartTime
@@ -30,8 +30,9 @@ export function handlePoolCreation(event: PoolCreation): void {
   poolEntity.tiers = event.params.noOfTiers
   poolEntity.participants = event.params.totalParticipants
   poolEntity.totalRaised = BigInt.fromI32(0)
-
+  
   MetaversepadTemplate.create(event.params.poolAddress)
-
+  
+  factoryEntity.save()
   poolEntity.save()
 }

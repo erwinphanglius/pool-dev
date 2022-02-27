@@ -16,7 +16,6 @@ export function addRaisedFundByPool(address: Address, newValue: BigInt): void {
 }
 
 export function addRaisedFundToFactory(newValue: BigInt): void {
-  // let id = address.toHex()
   let id = "0x4e59a2779f1e2f340b022e7fdfed3a74e5575783"
   let factory = Factory.load(id)
   if (factory == null) {
