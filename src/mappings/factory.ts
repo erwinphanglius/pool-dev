@@ -17,8 +17,11 @@ export function handlePoolCreation(event: PoolCreation): void {
     poolEntity = new Pool(event.params.poolAddress.toHex())
   }
 
-  factoryEntity.totalProject = factoryEntity.totalProject.plus(BigInt.fromI32(1))
-
+  if(event.params.noOfTiers == BigInt.fromI32(5)){
+    factoryEntity.totalProject = factoryEntity.totalProject.plus(BigInt.fromI32(1))
+    factoryEntity.save()
+  }
+  
   // poolEntity.factory = event.address.toHex()
   poolEntity.maxCap = event.params.poolMaxCap
   poolEntity.createdAt = event.params.timestamp
@@ -30,6 +33,5 @@ export function handlePoolCreation(event: PoolCreation): void {
 
   MetaversepadTemplate.create(event.params.poolAddress)
 
-  factoryEntity.save()
   poolEntity.save()
 }
