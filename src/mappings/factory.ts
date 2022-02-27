@@ -21,8 +21,7 @@ export function handlePoolCreation(event: PoolCreation): void {
     factoryEntity.totalProject = factoryEntity.totalProject.plus(BigInt.fromI32(1))
   }
   
-  factoryEntity.pool.push(poolEntity.id)
-
+  poolEntity.factory = event.address.toHex()
   poolEntity.maxCap = event.params.poolMaxCap
   poolEntity.createdAt = event.params.timestamp
   poolEntity.startedAt = event.params.saleStartTime
