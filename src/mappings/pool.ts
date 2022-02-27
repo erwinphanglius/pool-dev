@@ -15,8 +15,9 @@ export function addRaisedFundByPool(address: Address, newValue: BigInt): void {
   pool.save()
 }
 
-export function addRaisedFundToFactory(address: Address, newValue: BigInt): void {
-  let id = address.toHex()
+export function addRaisedFundToFactory(newValue: BigInt): void {
+  // let id = address.toHex()
+  let id = "0x4e59a2779f1e2f340b022e7fdfed3a74e5575783"
   let factory = Factory.load(id)
   if (factory == null) {
     factory = new Factory(id)
@@ -25,7 +26,7 @@ export function addRaisedFundToFactory(address: Address, newValue: BigInt): void
   factory.save()
 }
 
-export function handleFundPool(evtPoolInfo: FundPool, evtPoolFactory: PoolCreation): void {
+export function handleFundPool(evtPoolInfo: FundPool): void {
   let userInPoolEntity = UserInPool.load(evtPoolInfo.params.initiator.toHex() + "-" + evtPoolInfo.address.toHex())
 
   if (!userInPoolEntity) {
@@ -37,7 +38,7 @@ export function handleFundPool(evtPoolInfo: FundPool, evtPoolFactory: PoolCreati
   userInPoolEntity.value = userInPoolEntity.value.plus(evtPoolInfo.params.value)
 
   addRaisedFundByPool(evtPoolInfo.address, evtPoolInfo.params.value)
-  // addRaisedFundToFactory(evtPoolFactory.address, evtPoolInfo.params.value)
+  addRaisedFundToFactory(evtPoolInfo.params.value)
   
   userInPoolEntity.save() 
 }
