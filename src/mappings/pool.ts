@@ -25,7 +25,7 @@ export function addRaisedFundToFactory(address: Address, newValue: BigInt): void
   factory.save()
 }
 
-export function handleFundPool(evtPoolInfo: FundPool): void {
+export function handleFundPool(evtPoolInfo: FundPool, evtPoolFactory: PoolCreation): void {
   let userInPoolEntity = UserInPool.load(evtPoolInfo.params.initiator.toHex() + "-" + evtPoolInfo.address.toHex())
 
   if (!userInPoolEntity) {
