@@ -19,6 +19,7 @@ type UserInPool @entity {
 
 type Factory @entity {
   id: ID!
+  totalProject: BigInt!
   totalRaised: BigInt!
   # pool: [Pool!]! @derivedFrom(field: "factory")
 }

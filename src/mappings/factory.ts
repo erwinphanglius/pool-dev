@@ -6,16 +6,18 @@ import { MetaversepadTemplate } from "../../generated/templates"
 import { BigInt } from "@graphprotocol/graph-ts";
 
 export function handlePoolCreation(event: PoolCreation): void {
-  // let factoryEntity = Factory.load(event.address.toHex())
+  let factoryEntity = Factory.load(event.address.toHex())
   let poolEntity = Pool.load(event.params.poolAddress.toHex())
 
-  // if (!factoryEntity) {
-  //   factoryEntity = new Factory(event.address.toHex())
-  // }
+  if (!factoryEntity) {
+    factoryEntity = new Factory(event.address.toHex())
+  }
 
   if (!poolEntity) {
     poolEntity = new Pool(event.params.poolAddress.toHex())
   }
+
+  factoryEntity.totalProject = factoryEntity.totalProject.plus(BigInt.fromI32(1))
 
   // poolEntity.factory = event.address.toHex()
   poolEntity.maxCap = event.params.poolMaxCap
@@ -26,11 +28,8 @@ export function handlePoolCreation(event: PoolCreation): void {
   poolEntity.participants = event.params.totalParticipants
   poolEntity.totalRaised = BigInt.fromI32(0)
 
-  // factoryEntity.totalRaised = factoryEntity.totalRaised.plus(poolEntity.totalRaised)
-  // factoryEntity.pool = [poolEntity.id]
-
   MetaversepadTemplate.create(event.params.poolAddress)
 
-  // factoryEntity.save()
+  factoryEntity.save()
   poolEntity.save()
 }
